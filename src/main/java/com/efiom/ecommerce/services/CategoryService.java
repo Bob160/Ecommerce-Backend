@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public interface CategoryService {
 
     BaseResponse createCategory(CategoryDto categoryDto);
-    Category readCategory(String categoryName);
+    Category readCategory(CategoryDto categoryDto);
 
 
 }

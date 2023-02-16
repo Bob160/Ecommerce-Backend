@@ -19,9 +19,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
-    //public final CategoryService categoryService;
+
     private final ResponseCodeUtil responseCodeUtil = new ResponseCodeUtil();
-//!categoryRepository.findByCategoryName(categoryName).isPresent()
+
     @Override
     public CreateCategoryResponse createCategory(CategoryDto categoryDto) {
         CreateCategoryResponse categoryResponse = CreateCategoryResponse.builder()
@@ -32,18 +32,12 @@ public class CategoryServiceImpl implements CategoryService {
             BeanUtils.copyProperties(categoryDto, category);
             categoryRepository.save(category);
             return responseCodeUtil.updateResponseData(categoryResponse, ResponseCodeEnum.SUCCESS, "New ${category} created");
-            //return categoryService.createCategory(categoryDto);
-            //categoryRepository.save(categoryName);
-
         }
-        //return new ApiResponse(false,"Duplicate Category");
-
         return responseCodeUtil.updateResponseData(categoryResponse, ResponseCodeEnum.ERROR, "Category already exists");
     }
 
     @Override
-    public Category readCategory(String categoryName) {
-        return categoryRepository.findByCategoryName(categoryName);
-
+    public Category readCategory(CategoryDto categoryDto) {
+        return categoryRepository.findByCategoryName(categoryDto.getCategoryName());
     }
 }
