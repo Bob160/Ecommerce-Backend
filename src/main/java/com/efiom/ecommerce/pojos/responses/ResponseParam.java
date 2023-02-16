@@ -1,4 +1,4 @@
-package com.efiom.ecommerce.pojos;
+package com.efiom.ecommerce.pojos.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,11 +1,12 @@
 package com.efiom.ecommerce.util;
 
 import com.efiom.ecommerce.enums.ResponseCodeEnum;
-import com.efiom.ecommerce.pojos.ResponseParam;
+import com.efiom.ecommerce.pojos.responses.ResponseParam;
 import com.efiom.ecommerce.config.BaseResponse;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringSubstitutor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
