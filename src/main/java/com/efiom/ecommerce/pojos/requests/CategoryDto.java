@@ -12,4 +12,8 @@ import javax.validation.constraints.NotBlank;
 public class CategoryDto {
     @NotBlank(message = "Name must not be blank")
     private String categoryName;
+    @NotBlank(message = "Description must not be blank")
+    private String description;
+    @NotBlank(message = "imageUrl must not be blank")
+    private String imageUrl;
 }
