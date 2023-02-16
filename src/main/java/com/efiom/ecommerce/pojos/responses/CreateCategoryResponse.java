@@ -11,4 +11,6 @@ import lombok.ToString;
 public class CreateCategoryResponse extends BaseResponse {
 
     private String categoryName;
+    private String description;
+    private String imageUrl;
 }

@@ -1,28 +1,25 @@
 package com.efiom.ecommerce.controllers;
 
 import com.efiom.ecommerce.config.BaseResponse;
-import com.efiom.ecommerce.enums.ResponseCodeEnum;
 import com.efiom.ecommerce.models.Category;
 import com.efiom.ecommerce.pojos.requests.CategoryDto;
 import com.efiom.ecommerce.pojos.responses.CreateCategoryResponse;
 import com.efiom.ecommerce.services.CategoryService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/category")
 public class CategoryController {
 
 
-    private final CategoryService categoryService;
-
-    private final Category category;
+    @Autowired
+    private CategoryService categoryService;
 
 
     @PostMapping("/create-category")
@@ -33,8 +30,20 @@ public class CategoryController {
 
     @GetMapping("/category")
     public ResponseEntity<Category> readCategory (@RequestBody CategoryDto categoryDto) {
-        Category categoryResponse = categoryService.readCategory(categoryDto);
+        Category category = categoryService.readCategory(categoryDto);
         return new ResponseEntity<>(category, HttpStatus.OK);
+    }
+
+    @GetMapping("/all-category")
+    public ResponseEntity<List<Category>> getAllCategories () {
+        List<Category> allCategory = categoryService.listOfCategories();
+        return new ResponseEntity<>(allCategory, HttpStatus.OK);
+    }
+
+    @PutMapping("/{categoryId}")
+    public ResponseEntity<BaseResponse> updateCategory (@PathVariable Long categoryId, @RequestBody CategoryDto categoryDto) {
+        BaseResponse baseResponse = categoryService.updateCategory(categoryId);
+        return new ResponseEntity<>(baseResponse, HttpStatus.OK);
     }
 
 }
