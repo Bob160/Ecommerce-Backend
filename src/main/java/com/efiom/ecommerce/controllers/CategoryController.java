@@ -1,7 +1,6 @@
 package com.efiom.ecommerce.controllers;
 
-import com.efiom.ecommerce.config.ApiResponse;
-import com.efiom.ecommerce.repositories.CategoryRepository;
+import com.efiom.ecommerce.config.BaseResponse;
 import com.efiom.ecommerce.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,8 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    public ResponseEntity<ApiResponse> readCategory(String categoryName) {
-        return new ResponseEntity<ApiResponse>(new ApiResponse(true, ))
+    public ResponseEntity<BaseResponse> readCategory(String categoryName) {
+        return null;
     }
 
 }
