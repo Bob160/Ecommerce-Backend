@@ -4,16 +4,19 @@ import com.efiom.ecommerce.enums.ResponseCodeEnum;
 import com.efiom.ecommerce.models.Category;
 import com.efiom.ecommerce.models.Product;
 import com.efiom.ecommerce.pojos.requests.ProductDto;
+import com.efiom.ecommerce.pojos.requests.UpdateProductDto;
 import com.efiom.ecommerce.pojos.responses.ProductResponse;
+import com.efiom.ecommerce.pojos.responses.UpdatedProductResponse;
 import com.efiom.ecommerce.repositories.CategoryRepository;
 import com.efiom.ecommerce.repositories.ProductRepository;
 import com.efiom.ecommerce.services.ProductService;
 import com.efiom.ecommerce.util.ResponseCodeUtil;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,4 +54,32 @@ public class ProductServiceImpl implements ProductService {
                 productRepository.save(product);
                 return responseCodeUtil.updateResponseData(productResponse, ResponseCodeEnum.SUCCESS, productDto.getName() + " has been created successfully!");
     }
+
+    @Override
+    public List<ProductDto> allProducts() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDto> productDtos = new ArrayList<>();
+
+        for (Product product : products) {
+            productDtos.add(new ProductDto());
+        }
+        return productDtos;
+    }
+
+    @Override
+    public UpdatedProductResponse updateProduct(Long id, UpdateProductDto updateProductDto) {
+        UpdatedProductResponse updatedProductresponse = new UpdatedProductResponse();
+        Product product = productRepository.findById(id).orElse(null);
+        if (product == null) {
+            return responseCodeUtil.updateResponseData(updatedProductresponse, ResponseCodeEnum.ERROR, "Product not found");
+        }
+                product.setName(updateProductDto.getProductName());
+                product.setPrice(updateProductDto.getPrice());
+                product.setQuantity(updateProductDto.getQuantity());
+                productRepository.save(product);
+
+                return responseCodeUtil.updateResponseData(updatedProductresponse, ResponseCodeEnum.SUCCESS, product.getName() + " updated successfully");
+    }
+
+
 }
