@@ -1,15 +1,16 @@
 package com.efiom.ecommerce.pojos.requests;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.efiom.ecommerce.models.Product;
+import lombok.*;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class ProductDto {
     @NotBlank
@@ -24,4 +25,5 @@ public class ProductDto {
     private String description;
     @NotBlank
     private String categoryName;
+
 }

@@ -22,14 +22,21 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CreateCategoryResponse createCategory(CategoryDto categoryDto) {
-        CreateCategoryResponse categoryResponse = CreateCategoryResponse.builder()
-                .categoryName(categoryDto.getCategoryName())
-                .build();
-        if (categoryRepository.findByCategoryName(categoryDto.getCategoryName()) == null) {
+        if (categoryRepository.findByCategoryName(categoryDto.getCategoryName()) == null){
             Category category = new Category();
-            BeanUtils.copyProperties(categoryDto, category);
+        CreateCategoryResponse categoryResponse = CreateCategoryResponse.builder()
+                .description(categoryDto.getDescription())
+                .categoryName(categoryDto.getCategoryName())
+                .imageUrl(categoryDto.getImageUrl())
+                .build();
+//        if (categoryRepository.findByCategoryName(categoryDto.getCategoryName()) == null) {
+//            Category category = new Category();
+//            BeanUtils.copyProperties(categoryDto, category);
             categoryRepository.save(category);
-            return responseCodeUtil.updateResponseData(categoryResponse, ResponseCodeEnum.SUCCESS, "New ${category} created");
+            BaseResponse baseResponse = new BaseResponse();
+            baseResponse.setCode(0);
+            baseResponse.setDescription("New category created successfully");
+            return responseCodeUtil.updateResponseData(categoryResponse, ResponseCodeEnum.SUCCESS);
         }
         return responseCodeUtil.updateResponseData(categoryResponse, ResponseCodeEnum.ERROR, "Category already exists");
     }
