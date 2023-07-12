@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface CategoryService {
 
-    BaseResponse createCategory(CategoryDto categoryDto);
-    Category readCategory(CategoryDto categoryDto);
+    BaseResponse createCategory(String categoryName, String categoryDescription, String categoryImage);
+    Category readCategory(Long id);
 
     List<Category> listOfCategories();
 

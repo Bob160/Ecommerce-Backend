@@ -16,13 +16,6 @@ public class SwaggerConfig {
                         .version("1.1")
                         .description("Backend Ecommerce App API Documentation")
                 );
-//                .addSecurityItem(new SecurityRequirement().addList(securitySchemaName))
-//                .components(new Components()
-//                        .addSecuritySchemes(securitySchemaName, new SecurityScheme()
-//                                .name(securitySchemaName)
-//                                .type(SecurityScheme.Type.HTTP)
-//                                .scheme("bearer")
-//                                .bearerFormat("JWT")));
     }
 
 }

@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 @Data
 public class CreateCategoryResponse extends BaseResponse {
-
+    //private BaseResponse baseResponse;
     private String categoryName;
     private String description;
     private String imageUrl;
