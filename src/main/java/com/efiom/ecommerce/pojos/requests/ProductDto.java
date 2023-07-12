@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-@AllArgsConstructor
+//@AllArgsConstructor
 @RequiredArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 public class ProductDto {
     @NotBlank
     private String name;

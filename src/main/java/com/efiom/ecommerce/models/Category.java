@@ -1,21 +1,26 @@
 package com.efiom.ecommerce.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+//import org.hibernate.annotations.Entity;
+//import org.hibernate.annotations.Table;
+//import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Data
 @Entity
+@Builder
 @Table(name = "categories")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @NotBlank
     @Column(name = "category_name")

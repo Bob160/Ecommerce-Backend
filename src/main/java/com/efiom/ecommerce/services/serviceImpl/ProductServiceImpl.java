@@ -35,8 +35,8 @@ public class ProductServiceImpl implements ProductService {
         ProductResponse productResponse = ProductResponse.builder()
                 .name(productDto.getName())
                 .build();
-        Category category1 = categoryRepository.findByCategoryName(productDto.getCategoryName());
-                if (category1 == null) {
+        Optional<Category> category1 = categoryRepository.findByCategoryName(productDto.getCategoryName());
+                if (category1.isEmpty()) {
                     return responseCodeUtil.updateResponseData(productResponse, ResponseCodeEnum.ERROR, productDto.getCategoryName() + " does not exist");
                 }
         Optional<Product>newProduct = productRepository.findByName(productDto.getName());
@@ -46,24 +46,47 @@ public class ProductServiceImpl implements ProductService {
                 Product product = Product.builder()
                         .name(productDto.getName())
                         .price(productDto.getPrice())
-                        .category(category1)
+                        .category(category1.get())
                         .quantity(productDto.getQuantity())
                         .imageUrl(productDto.getImageUrl())
                         .description(productDto.getDescription())
                         .build();
                 productRepository.save(product);
+                productResponse = ProductResponse.builder()
+                        .name(productDto.getName())
+                        .category(category1.get())
+                        .description(productDto.getDescription())
+                        .imageUrl(productDto.getImageUrl())
+                        .build();
                 return responseCodeUtil.updateResponseData(productResponse, ResponseCodeEnum.SUCCESS, productDto.getName() + " has been created successfully!");
     }
 
     @Override
-    public List<ProductDto> allProducts() {
+    public List<Product> allProducts() {
         List<Product> products = productRepository.findAll();
-        List<ProductDto> productDtos = new ArrayList<>();
+//        List<ProductDto> productDtos = new ArrayList<>();
+//
+//        for (Product product : products) {
+//            productDtos.add(new ProductDto());
+//        }
+        return products;
+    }
 
-        for (Product product : products) {
-            productDtos.add(new ProductDto());
+    @Override
+    public ProductResponse getProductById(long productId) {
+        Product product = productRepository.findById(productId).get();
+        if (productRepository.existsById(productId)) {
+            return ProductResponse.builder()
+                    .imageUrl(product.getImageUrl())
+                    .description(product.getDescription())
+                    .category(product.getCategory())
+                    .name(product.getName())
+                    .build();
+        } else {
+            return ProductResponse.builder()
+                    .description("Product already exist")
+                    .build();
         }
-        return productDtos;
     }
 
     @Override

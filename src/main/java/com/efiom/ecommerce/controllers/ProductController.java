@@ -29,9 +29,16 @@ public class ProductController {
     return new ResponseEntity<>(productResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping("/get-products")
-    public ResponseEntity<List<ProductDto>> listProducts() {
-    List<ProductDto> productDtos = productService.allProducts();
-    return new ResponseEntity<>(productDtos, HttpStatus.OK);
+    @GetMapping("/get-product-id")
+    public ResponseEntity<ProductResponse> getProductById (@RequestParam ("id") long id) {
+        ProductResponse productResponse = productService.getProductById(id);
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
+
+    @GetMapping("/get-all-products")
+    public ResponseEntity<List<Product>> listProducts() {
+    List<Product> products = productService.allProducts();
+    return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
 }
